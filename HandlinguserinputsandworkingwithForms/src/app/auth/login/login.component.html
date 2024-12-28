@@ -1,17 +1,48 @@
-<form>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <h2>Login</h2>
 
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" />
+      <input id="email" type="email" [formControl]="form.controls.email" />
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" />
+      <input id="password" type="password" formControlName="password"/>
     </div>
 
     <button class="button">Login</button>
   </div>
+  @if(emailInvalid){
+    <p class="control-error">Please enter valid email address</p>
+  }
+
+  
+  @if(passwordInvalid){
+    <p class="control-error">Please enter the valid password.</p>
+  }
 </form>
+
+<!-- ------------------------template driven approach-------------------------------- -->
+<!-- <form #form="ngForm" (ngSubmit)="onSubmit(form)"> 
+  <h2>Login</h2>
+
+  <div class="control-row">
+    <div class="control no-margin">
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" ngModel required email #emailctrl="ngModel"/>
+    </div>
+
+    <div class="control no-margin">
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" ngModel required minlength="6" #password="ngModel"/>
+    </div>
+
+    <button class="button">Login</button>
+    
+  </div>
+             @if(emailctrl.touched && (password.touched && form.form.invalid)){
+    <p class="control-error">Invlid values detected. Please check the email and password.</p>
+  }
+</form> -->
